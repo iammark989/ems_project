@@ -1,0 +1,207 @@
+/* Layout base */
+.layout {
+    display: flex;
+}
+
+/* === Topbar === */
+/* Navbar (Topbar) */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    height: 60px;
+    background: linear-gradient(1deg, #fd9886, #fd695e);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    justify-content: space-between; /* pushes items left/right */
+    z-index:1000;
+}
+
+.nav-toggle-btn {
+  margin-right: 15px;
+}
+
+/* Navbar adjusts when sidebar collapses */
+.sidebar.collapsed ~ .topbar {
+    left: 0px;
+    width: calc(100% - 0px);
+}
+
+/* Navbar adjusts when sidebar collapses */
+.sidebar.collapsed ~ .navbar {
+    left: 00px;
+    width: calc(100% - 60px);
+}
+
+
+/* === Sidebar === */
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0; /* start at the top edge of the viewport */
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index:1000;
+}
+
+.sidebar.collapsed {
+    width: 0px; /* collapse width */
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 15px;
+    padding: 0;
+}
+
+.sidebar ul li.nav-link-head {
+  padding: 5px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.sidebar ul li.nav-link-head {
+    font-size: 15px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:bold;
+}
+.sidebar ul li.nav-link {
+    font-size: 15px;
+    padding: 3px 0 0 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+
+.sidebar ul li a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.sidebar ul li.nav-link:hover {
+  background-color: #868484;
+}
+
+.sidebar ul .logout {
+  margin-top: auto;
+  background-color: #252538;
+}
+
+.nav-icon{
+    padding-right: 15;
+}
+
+/* When active, bring sidebar into view */
+.sidebar.active {
+    transform: translateX(0);
+}
+
+/* === Page Content === */
+.content {
+    margin-top: 60px; /* make space for the topbar */
+    padding: 20px;
+    transition: all 0.3s ease;
+    width:100%;
+    z-index:1;
+}
+
+.sidebar.collapsed ~ .content {
+    margin-left: 0;
+}
+
+.page-content{
+    display:flex;
+    justify-content:center;
+    /*align-items:center;*/
+    /*height:100vh;*/
+    background:#b4b3b3;
+}
+
+/* Hide sidebar automatically on small screens */
+@media (max-width: 767px) {
+    /*.sidebar {
+        left: -250px;  hidden by default 
+        width: 250px;*/
+    /*}
+    .sidebar.mobile-active {
+        left: 0;  visible when toggled 
+    }*/
+    .topbar{
+        width: calc(100% - 250px);
+    }
+
+    .sidebar.collapsed ~ .topbar {
+    left: 0px;
+    width: calc(100% - 0px);
+    }
+
+    .sidebar.collapsed {
+        left: 0; /* show when toggled */
+        transition: width 0.3s ease;
+    }
+
+    .content {
+    margin-top: 60px; /* make space for the topbar */
+    padding: 20px;
+    }
+
+    .sidebar.collapsed ~ .content {
+        margin-left: 0;
+    }
+
+    /* Optional: add overlay for mobile */
+    .sidebar::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 250px;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: none;
+    }
+
+
+}
+
+
+
+/* For larger screens (>= 768px), sidebar stays visible */
+@media (min-width: 768px) {
+    .sidebar {
+        left: 0;
+    }
+
+    .sidebar.collapsed {
+        left: -250px; /* optional collapse behavior */
+        transition: width 0.3s ease;
+    }
+
+    .content {
+        margin-left: 250px;
+    }
+}
+
+/* Optional logout button styling */
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: auto;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}

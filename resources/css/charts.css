@@ -1,0 +1,11 @@
+.chart-container {
+    position: relative;
+    width: 100%;        /* makes it responsive */
+    max-width: 800px;   /* limit max size */
+    height: 400px;      /* control height */
+    margin: 20px auto;  /* center horizontally */
+    background: #fff;   /* optional background */
+    padding: 20px;      /* optional spacing */
+    border-radius: 16px; /* smooth edges */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* soft shadow */
+}

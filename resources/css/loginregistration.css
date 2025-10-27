@@ -1,0 +1,64 @@
+  /* --- Reset & Body --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lr-body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(1deg, #eeedf0, #eb3023);
+            font-family: Arial, sans-serif;
+        }
+
+        /* --- Login Box --- */
+        .login-box, .registration-box {
+            width: 350px;
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-box h2, .registration-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* --- Input Fields --- */
+        .inputfield {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* --- Button --- */
+        .login-box button,.registration-box button {
+            width: 100%;
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .login-box button:hover {
+            background: #1e63d8;
+        }
+
+        /* --- Responsive (for small screens) --- */
+        @media (max-width: 400px) {
+            .login-box {
+                width: 90%;
+                padding: 25px 20px;
+            }
+        }
