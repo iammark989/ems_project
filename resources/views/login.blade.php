@@ -23,7 +23,7 @@
         </div>
             
         @endif
-        <h2>Login</h2>
+        <h2><img src='mv_.png' style='height:50px;width:50px;' /> Login</h2>
         <form method='POST' action='/login'>
           @csrf
             <input value='{{ old('username') }}' class='inputfield' type="text" placeholder="Username" name='username'>
@@ -37,7 +37,7 @@
             @enderror
 
             <button type="submit">Sign In</button>
-            <a href='/register' class='small'>register</a>
+            
         </form>
     </div>
 

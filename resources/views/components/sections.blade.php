@@ -14,18 +14,18 @@
                                 <div class="modal-body">
                                 <div class="mb-3">
                                 <!--<label for="employeeID" class="form-label">Employee ID</label> -->
-                                <input hidden value='{{ $empdetails->employeeID }}' type="text" class="form-control" name="employeeID" disabled index='-1'>
+                                <input hidden value='{{ $empdetails->employeeID }}' type="text" class="form-control" name="employeeID" id='employeeID' disabled index='-1'>
                                 </div>
                                 <div class="mb-3">
-                                <label for="rfid_code" class="form-label">RFID Code</label>
-                                <input type="text" class="form-control" name="rfid_code" id="rfid_code" placeholder="Tap RFID card..." required autofocus>
-                                <p id='toscanmsg'>Click here to register ID card</p>
+                                <!--<label for="rfid_code" class="form-label">RFID Code</label> -->
+                                <input style='opacity:0;height:1px;' type="text" class="form-control" name="rfid_code" id="rfid_code" placeholder="Tap RFID card..." required autofocus autocomplete="off">
+                                <p id='toscanmsg' class='text-center fw-bold'>Click here to register ID card</p>
                                 </div>
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button hidden type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 
-                                <button type="" class="btn btn-primary">Save RFID</button>
+                                <button hidden type="" class="btn btn-primary">Save RFID</button>
                                 </div>
                         <!--</form>-->
                         </div>
@@ -68,11 +68,14 @@
                 @endsection
 
                 @section('rfidmodalscript')
+              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                         // RFID start //
+                
+                const toscanmsg = document.getElementById('toscanmsg');      
+                const therfidModal = document.getElementById('rfidModal');  
                 const regID = document.getElementById('rfid_code');
-                const toscanmsg = document.getElementById('toscanmsg');             
-
+                const employeeID = document.getElementById('employeeID');
                 // Always refocus input in case the user clicks somewhere else
                 rfidModal.addEventListener('click', function(event){ 
                        if(event.target !== regID){
@@ -80,11 +83,14 @@
                         toscanmsg.innerHTML = "Scan your ID card";
                 }
                 });
+
+
                         
                 // event after scanned
                         regID.addEventListener('change', async () => {
-                        const scannedValue = regID.value.trim();
-                        if (!regID) return;
+                        const regIDvalue = regID.value.trim();
+                        const eID = employeeID.value.trim();
+                        if (!regIDvalue) return;
 
                 // Example: send data to Laravel route
                         const response = await fetch('/register/rfid', {
@@ -93,22 +99,40 @@
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
-                        body: JSON.stringify({ rfid: regID })
+                        body: JSON.stringify({ rfid: regIDvalue, employeeID: eID })
                         });
-
-                
-                        const result = await response.json();
-
-                        if (result.success) {
-                        toscanmsg.innerHTML = `success`;
-                        } else {
-                        toscanmsg.innerHTML = 'failed';
-
+                         const result = await response.json();
+                        
+                        if(result.success){
+                                Swal.fire({
+                                toast: true,
+                                position: 'top', // top, top-start, top-end
+                                icon: 'success',         // success, error, warning, info
+                                title: 'ID Card Successfully registered',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true
+                                });
+                        }else{
+                                Swal.fire({
+                                toast: true,
+                                position: 'top', // top, top-start, top-end
+                                icon: 'error',         // success, error, warning, info
+                                title: 'ID Card already in used',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true
+                                });
                         }
+        
                         // Reset input for next scan
                         regID.value = '';
                         regID.focus();
+                        
+
+
                 });
                 
                </script>
+               
                 @endsection

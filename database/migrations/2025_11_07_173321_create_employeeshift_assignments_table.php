@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendance', function (Blueprint $table) {
+        Schema::create('employeeshift_assignments', function (Blueprint $table) {
             $table->id();
             $table->string('employeeID');
-            $table->date('recordDate');
-            $table->time('clockRecord')->nullable();
-            $table->string('stat')->nullable();
-            $table->text('remarks')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->string('shift_id');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('cutoff_period');
             $table->timestamps();
-
-
             $table->foreign('employeeID')->references('employeeID')->on('users')->onDelete('cascade');
-
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendance');
+        Schema::dropIfExists('employeeshift_assignments');
     }
 };

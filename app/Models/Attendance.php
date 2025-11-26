@@ -15,16 +15,17 @@ class Attendance extends Model
     
     protected $table = 'attendance';
 
+
     protected $fillable = [
         'employeeID',
-        'date',
+        'recordDate',
         'clockRecord',
         'stat',
         'remarks',
     ];
 
     public function user(){
-        return $this->belongsTo(User::class,'employeeID');
+        return $this->belongsTo(User::class,'employeeID','employeeID');
     }
 
     public function RfidCard(){

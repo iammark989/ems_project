@@ -22,16 +22,27 @@
         @can('acctgAdmin')
         <li class='nav-link-head'>Reports</li>
         <li class='nav-link'><a href="#"> Sales Report</a></li>
-        <li class='nav-link'><a href="#"> Gas Consumption Report</a></li>
+        <li class='nav-link'><a href="/gas-consumption-report"> Gas Consumption Report</a></li>
         <li class='nav-link'><a href="#"> Inventory Sales Report</a></li>
         @endcan
+
+        @can('acctgAdmin')
+        <li class='nav-link-head'>Others</li>
+        <li class='nav-link'><a href="/gas-consumption"> Update Gas Consumption</a></li>
+        @endcan
+
+
 
          <!-- Services -->
         <li class='nav-link-head'>Services</li>
         <li class='nav-link'><a href="/view_payslip/{{ Auth()->user()->employeeID }}"> View Payslip</a></li>
         <li class='nav-link'><a href="#"> File Leave</a></li>
         <li class='nav-link'><a href="#"> Change Pin</a></li>
-
+        
+        <!-- Settings -->
+        <li class='nav-link-head'>Settings</li>
+        <li class='nav-link'><a href="/settings-payroll"> Payroll Settings</a></li>
+        <li class='nav-link'><a href="/settings"> Company Settings</a></li>
     </ul>
 
     <form method="POST" action="/logout" class="logout-form">

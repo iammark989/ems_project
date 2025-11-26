@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('position');
+            $table->string('department');
             $table->date('date_hired');
             $table->decimal('daily_rate');
             $table->decimal('allowance');

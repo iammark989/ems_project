@@ -14,31 +14,35 @@ class AttendanceController extends Controller
     // rfid registration //
     public function rfidregistration(Request $request){
         $rfid = $request->input('rfid');
+        $employeeID = $request->input('employeeID');
         $employee = RfidCard::where('rfid_data', $rfid)->first();
+        $rfidData['rfid_data'] = $rfid;
+        $rfidData['employeeID'] = $employeeID;
+        $rfidData['is_active'] = '1';
         
         if(!$employee){
+
+            RfidCard::create($rfidData);
             return response()->json(['success' => true]);
-            return with(['message' => 'Record Successfully Updated','type' => 'success']);
-        } else {
            
+
+        } else {
+           return response()->json(['success' => false]);
         }
     }
 
     // == USER CLOCK IN AND OUT == //
         // show attendance page
-    public function showAttendancePage(){
-        return view('clockinout');
-    }
      public function showAttendancePageB(){
         return view('att');
     }
     
-    // == clock in / our using rfid == //
+    // == clock in / out == //
     public function attendancelog(Request $request){
         $rfid = $request->input('rfid');
         $employee = RfidCard::where('rfid_data', $rfid)->first();
-        
 
+        
             if (!$employee) {
                 return response()->json(['success' => false]);
             }  else{
@@ -54,14 +58,14 @@ class AttendanceController extends Controller
                     Attendance::create([
                     'employeeID' => $employee->employeeID,
                     'clockRecord' => now(),
-                    'date' => now()->toDateString(),
+                    'recordDate' => now()->toDateString(),
                     'stat' => 'ClockIn'
                     ]);
                 } else if($status === 'clockOut' && $checkDate !== Carbon::parse($lastLog->date)->toDateString()){
                     Attendance::create([
                     'employeeID' => $employee->employeeID,
                     'clockRecord' => now(),
-                    'date' => now()->toDateString(),
+                    'recordDate' => now()->toDateString(),
                     'stat' => 'ClockIn'
                     ]);
                     $status = 'clockIn';
@@ -72,20 +76,45 @@ class AttendanceController extends Controller
                         Attendance::create([
                         'employeeID' => $employee->employeeID,
                         'clockRecord' => now(),
-                        'date' => now()->toDateString(),
+                        'recordDate' => now()->toDateString(),
                         'stat' => 'ClockOut'
                     ]);
                 }
-        
+               
                 return response()->json([
                     'success' => true,
                     'employee_name' => $theUser->username,
-                    'status' => $status === 'clockIn' ? 'Time In' : 'Time Out'
+                    'status' => $status === 'clockIn' ? 'Time In' : 'Time Out',
+                    'image' => $theUser->images,
+                    'employeeID' => $theUser->employeeID,
+
                 ]);
 
             }
    
     }
 
+    // == ATTENDANCE REPORT == //
+
+        public function showAttendancePage(){
+        return view('employeeattpanel');
+    }
+    public function showAttendanceLogPage(){
+        return view('employeeattlog');
+    }
+    public function showClockinoutLogPage(){
+        return view('employeeclockinoutlog');
+    }
+
+    function attendanceLogs(Request $request){
+        $dateRange = $request->validate([
+            'datefrom' => 'required',
+            'dateto' => 'required',
+        ]);
+        $qry = Attendance::where('clockRecord','>=',$dateRange['datefrom']);
+        return redirect('/attendance/viewlog',['sample'=> $qry]);
+    }
+
+    
 
 }

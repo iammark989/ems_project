@@ -1,7 +1,7 @@
 @auth
 	
 
-<x-topbar>
+<x-main>
 
 
 <h5>View Paylip</h5>
@@ -14,6 +14,7 @@
 		<form id="viewpayslip" action="/view_payslip/{{ $userDetails->employeeID }}" method="get">
 		<div class="card-header" >
 						@if($payrollDetails !== null)
+						
 						<span> Month : </span>
 							<select name="month">
 								<option value="JANUARY" {{ $payrollDetails->month == "JANUARY" ? 'selected' : '' }}>JANUARY</option>
@@ -42,6 +43,7 @@
 								<option value="1" {{ $payrollDetails->month == "1" ? 'selected' : '' }}>1</option>
 								<option value="2" {{ $payrollDetails->month == "2" ? 'selected' : '' }}>2</option>
 							</select>
+							
 
 						@else
 
@@ -89,11 +91,12 @@
 						</div>
 						</div>
 						@endif
+						</div>
 						
 		</form>
 
 		@if($payrollDetails != null)
-		</div>
+		
 
 		<div id="printArea">
 		<div id="appending">
@@ -294,7 +297,7 @@ function printResult(divId) {
 	</div>
 </div>
 
-</x-topbar>
+</x-main>
 
 @else
 
