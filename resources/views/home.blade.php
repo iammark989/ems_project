@@ -13,10 +13,13 @@
                 </div>
         </div>
         @elseif (auth()->user()->userlevel == "2")
-         <div class='container-fluid' style='border:2px solid;background-color:white;width:100%;height:150px;'>
+         <span class='h3' style='text-align:center;'> ANNOUNCEMENT </span>
+         <hr>
+         <div class='container-fluid' style='background-color:rgb(243, 243, 243);'>
                 <div>
+                    <br>
                         <div>
-                            <span>LEVEL 2</span>
+                            @livewire('post')
                         </div>
                 </div>
         </div>

@@ -29,6 +29,8 @@ Route::get('/employeelist',[UserController::class,'employeelist'])->middleware('
 Route::get('/employeelist/{employeeID}',[UserController::class,'employeedetails'])->middleware('signInCheck');
 Route::get('/employeelist/{employeeID}/edit',[UserController::class,'showEditForm'])->middleware('signInCheck');
 Route::put('/saveEditDetails/{employeeID}',[UserController::class,'EditDetails'])->middleware('signInCheck');
+Route::get('/make-post',[UserController::class,'makepost'])->middleware('signInCheck');
+Route::post('/save-post',[UserController::class,'savepost'])->middleware('signInCheck');
 
 
 Route::get('/employee_registration',[UserController::class,'employeeadd'])->middleware('signInCheck')->middleware('can:hrdAdmin');
@@ -59,6 +61,7 @@ Route::post('/register/rfid',[AttendanceController::class,'rfidregistration'])->
 
    //== REPORTS ==//
 Route::get('/gas-consumption-report',[ReportsController::class,'viewgasconsumption'])->middleware('signInCheck');
+Route::get('/sales-analysis-report',[ReportsController::class,'viewsalesanalysis'])->middleware('signInCheck');
 
 
 

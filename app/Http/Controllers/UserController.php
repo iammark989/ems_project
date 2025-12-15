@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\RfidCard;
 use App\Models\Attendance;
@@ -179,7 +180,25 @@ class UserController extends Controller
                     //= employee model =//
                 Employeelist::create($incomingFields);
                 
-                return redirect('/employee_register')->with(['meesage'=>'Employee Successfully Register','type'=>'success']);
+                return redirect('/employee_register')->with(['message'=>'Employee Successfully Register','type'=>'success']);
         }
+
+
+        // = POST RELATED CONTROLL = //
+        public function makepost(){
+            return view('/employeemakepost');
+        }
+
+        public function savepost(Request $request){
+            $incomingFields = $request->validate([
+                'title' => ['required'],
+                'message' => ['required']
+            ]);
+            $incomingFields['user_id'] = Auth()->user()->id;
+
+            Post::create($incomingFields);
+            return redirect('/make-post')->with(['message'=>'Message successfully posted','type'=>'success']);
+        }
+
 
 }

@@ -4,7 +4,7 @@
         <ul class='navi'>
         
         <li class='nav-headname'>
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <img class='avatar-tiny' src='{{ Auth()->user()->images }}'>
             <span class='text-uppercase'>{{Auth()->user()->username}}</span>
         </li>
         <li class='nav-link-head'><a href='/'>Dashboard</a></li>
@@ -16,12 +16,13 @@
         <li class='nav-link'><a href="/attendance"> Employee Attendance</a></li>
         <li class='nav-link'><a href="#"> Employee Request</a></li>
         <li class='nav-link'><a href="/employee_registration"> Employee Registration</a></li>
+         <li class='nav-link'><a href="/make-post"> Make Post</a></li>
             @endcan
         
         <!-- reports -->
         @can('acctgAdmin')
         <li class='nav-link-head'>Reports</li>
-        <li class='nav-link'><a href="#"> Sales Report</a></li>
+        <li class='nav-link'><a href="/sales-analysis-report"> Sales Analysis Report</a></li>
         <li class='nav-link'><a href="/gas-consumption-report"> Gas Consumption Report</a></li>
         <li class='nav-link'><a href="#"> Inventory Sales Report</a></li>
         @endcan

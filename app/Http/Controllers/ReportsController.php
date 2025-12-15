@@ -9,4 +9,8 @@ class ReportsController extends Controller
     public function viewgasconsumption(){
         return view('/reportsgasconsumption');
     }
+
+    public function viewsalesanalysis(){
+        return view('/reportssalesanalysis');
+    }
 }

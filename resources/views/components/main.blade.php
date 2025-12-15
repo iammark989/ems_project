@@ -47,6 +47,7 @@
      @yield('makecutoffperiod')
     @yield('cutoffperiodscript')
     @yield('editclockinout')
+    @yield('gstoast')
     
 
 </body>

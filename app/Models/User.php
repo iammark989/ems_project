@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Post;
 use App\Models\RfidCard;
 use App\Models\Attendance;
 use Illuminate\Support\Str;
@@ -51,6 +52,10 @@ class User extends Authenticatable
     }
     public function attendance(){
         return $this->hasMany(Attendance::class,'employeeID','employeeID');
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class,'user_id','id');
     }
 
 

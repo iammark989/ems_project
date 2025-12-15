@@ -12,10 +12,12 @@ class GasconsumptionReports extends Component
     public $peryearqty = [];
     public $yearlyVc = []; // yearly vehicle consumption qty
     public $pervehicle = [];
-    public $perMYvehicle = [];
+    public $moPerVehicle = [];
 
-    public $selectedMonthB = '';
-    public $selectedYearB = '';
+    public $selectedMonthB = ''; //per month and year vehicle
+    public $selectedYearB = ''; //per month and year vehicle
+
+
     public $selectedYear = '';
  
 
@@ -48,11 +50,15 @@ class GasconsumptionReports extends Component
                                 DB::raw('SUM(CASE WHEN YEAR(transdate)=2023 THEN quantity END) AS Y2023'),
                                 DB::raw('SUM(CASE WHEN YEAR(transdate)=2024 THEN quantity END) AS Y2024'),
                                 DB::raw('SUM(CASE WHEN YEAR(transdate)=2025 THEN quantity END) AS Y2025'),
+                                DB::raw('SUM(CASE WHEN YEAR(transdate)=2023 THEN totalamount END) AS A2023'),
+                                DB::raw('SUM(CASE WHEN YEAR(transdate)=2024 THEN totalamount END) AS A2024'),
+                                DB::raw('SUM(CASE WHEN YEAR(transdate)=2025 THEN totalamount END) AS A2025'),
                                 DB::raw('vehicle AS VEHICLE')
                             )
                         ->WHERE('product','DIESEL')
                         ->groupBy('VEHICLE')
                         ->get();
+        
 
 
 
@@ -60,6 +66,13 @@ class GasconsumptionReports extends Component
         $this->selectedYear = date('Y');
         // load data for the default year
         $this->loadPerDriverData();
+
+        
+        //per month and year vehicle
+        $this->selectedMonthB = date('m');
+        $this->selectedYearB = date('Y');
+
+        $this->loadPerMonthYearVehicle();
 
     }
 
@@ -89,17 +102,24 @@ class GasconsumptionReports extends Component
     }
 
     public function loadPerMonthYearVehicle(){
-        $this->perMYvehicle = DB::raw('gasreport')
+        $this->moPerVehicle = DB::table('gasreports')
                             ->select(
-                                DB::raw('vehicle AS vehicle'),
-                                DB::raw('SUM(quantity) AS QUANTITY')  
-                                
-                                
-                                
+                                DB::raw('vehicle AS VEHICLE'),
+                                DB::raw('SUM(quantity) AS QUANTITY') 
                                 )
+                            ->where(DB::raw('YEAR(transdate)'),$this->selectedYearB)
+                            ->where(DB::raw('MONTH(transdate)'),$this->selectedMonthB)
+                            ->groupBy('VEHICLE')
                             ->get();
+                             // Tell JS to update the chart
+   $this->dispatch('update-monthlyVehicleChart', moPerVehicle: $this->moPerVehicle);
+    }
 
-
+    public function updatedselectedYearB(){
+        $this->loadPerMonthYearVehicle();
+    }
+    public function updatedselectedMonthB(){
+        $this->loadPerMonthYearVehicle();
     }
 
 
