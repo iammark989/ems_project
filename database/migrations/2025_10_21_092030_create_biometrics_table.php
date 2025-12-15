@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('fp_data');
             $table->string('device_id')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->timestamps('');
+            $table->timestamps();
 
             $table->foreign('employeeID')->references('employeeID')->on('users')->onDelete('cascade');
         });
