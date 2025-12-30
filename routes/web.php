@@ -24,6 +24,10 @@ Route::get('/register', function(){
     })->name('register');
 Route::post('/register',[UserController::class,'register']);
 
+// == CHANGE PASSWORD ==//
+Route::get('/change_password',[UserController::class,'viewchangepassword'])->middleware('signInCheck');
+Route::post('/change_password',[UserController::class,'changepassword'])->middleware('signInCheck');
+
 // == EMPLOYEE PANEL ==//
 Route::get('/employeelist',[UserController::class,'employeelist'])->middleware('signInCheck');
 Route::get('/employeelist/{employeeID}',[UserController::class,'employeedetails'])->middleware('signInCheck');

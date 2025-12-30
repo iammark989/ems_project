@@ -12,6 +12,7 @@ use App\Models\Employeelist;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -103,7 +104,7 @@ class UserController extends Controller
                     'userlevel' => ['required','in:1,2,3,4'], 
                     'images' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:3000']
                 ]);
-                        // == image uploader == //
+                        // == image uploader (composer intervention install)== //
                  $user = User::where('employeeID',$employeeID)->firstOrFail();
                 $employeelist = Employeelist::where('employeeID',$employeeID)->firstOrFail();
                 
@@ -128,6 +129,7 @@ class UserController extends Controller
                 $userData = $request->only(['email', 'status', 'userlevel']);
                 $userData['status'] = $request->boolean('status');
                 $userData['images'] = $filename;
+                $userData['username'] = $incomingFields['first_name'] . " " . $incomingFields['last_name'];
                 
 
                 $employeeData = $request->only([
@@ -180,8 +182,28 @@ class UserController extends Controller
                     //= employee model =//
                 Employeelist::create($incomingFields);
                 
-                return redirect('/employee_register')->with(['message'=>'Employee Successfully Register','type'=>'success']);
+                return redirect('/employee_registration')->with(['message'=>'Employee Successfully Register','type'=>'success']);
         }
+
+        // = CHANGE PASSWORD RELATED CONTROLL = //
+        public function viewchangepassword(){
+            return view('/changepassword');
+        }
+        public function changepassword(Request $request){
+            $incomingFields = $request->validate([
+                            'currentpassword' => ['required','regex:/^[0-9]+$/','digits:5'],
+                            'password' => ['required','regex:/^[0-9]+$/','confirmed','digits:5'],
+
+            ]);
+            if(Hash::check($incomingFields['currentpassword'],Auth()->user()->password)){
+                Auth::user()->update(['password' => Hash::make($incomingFields['password'])]);
+                return redirect('/change_password')->with(['message'=>'Password change successfully','type'=>'success']);
+            }else{
+                return redirect('/change_password')->with(['message'=>Auth()->user()->password,'type'=>'error']);
+            }
+            
+        }
+
 
 
         // = POST RELATED CONTROLL = //

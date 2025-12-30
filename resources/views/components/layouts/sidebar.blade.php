@@ -5,7 +5,7 @@
         
         <li class='nav-headname'>
             <img class='avatar-tiny' src='{{ Auth()->user()->images }}'>
-            <span class='text-uppercase'>{{Auth()->user()->username}}</span>
+            <span class='text-uppercase small'>{{Auth()->user()->username}}</span>
         </li>
         <li class='nav-link-head'><a href='/'>Dashboard</a></li>
 
@@ -44,6 +44,7 @@
         <li class='nav-link-head'>Settings</li>
         <li class='nav-link'><a href="/settings-payroll"> Payroll Settings</a></li>
         <li class='nav-link'><a href="/settings"> Company Settings</a></li>
+        <li class='nav-link'><a href="/change_password"> Change Password</a></li>
     </ul>
 
     <form method="POST" action="/logout" class="logout-form">

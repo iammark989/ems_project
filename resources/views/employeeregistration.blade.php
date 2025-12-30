@@ -70,13 +70,13 @@
                                                         
                                                         <div class='col-4 form-group'><label class='label mt-1'>Date Hired</label><input value='{{ old('date_hired') }}' name='date_hired' class='form-control form-control-sm' type='date'></input> @error('date_hired')<p class='m-0 small alert alert-danger shadow-sm'>{{$message}}</p>@enderror</div>
                                                         
-                                                        <div class='col-4 form-group'><label class='label mt-1'>Daily Rate</label><input value='{{ old('daily_rate') }}' name='daily_rate' class='form-control form-control-sm' type='number' maxlength="10"></input> @error('daily_rate')<p class='m-0 small alert alert-danger shadow-sm'>{{$message}}</p>@enderror </div>   
+                                                        <div class='col-4 form-group'><label class='label mt-1'>Daily Rate</label><input value='{{ old('daily_rate') }}' name='daily_rate' class='form-control form-control-sm' type='number' step='0.01' maxlength="10"></input> @error('daily_rate')<p class='m-0 small alert alert-danger shadow-sm'>{{$message}}</p>@enderror </div>   
                                                                                                        
                                         </div>
                                         <div class='row'>
-                                                        <div class='col-4 form-group'><label class='label mt-1'>Allowance</label><input value='{{ old('allowance') }}' name='allowance' class='form-control form-control-sm' type='number' maxlength="10"></input></div>
-                                                        <div class='col-4 form-group'><label class='label mt-1'>Service incentive Leave</label><input value='{{ old('leave_bal_SIL') }}' name='leave_bal_SIL' class='form-control form-control-sm' type='number' maxlength="10"></input></div>
-                                                        <div class='col-4 form-group'><label class='label mt-1'>Vacation Leave</label><input value='{{ old('leave_bal_VL') }}' name='leave_bal_VL' class='form-control form-control-sm' type='number' maxlength="10"></input></div>                                                   
+                                                        <div class='col-4 form-group'><label class='label mt-1'>Allowance</label><input value='{{ old('allowance') }}' name='allowance' class='form-control form-control-sm' type='number' step='0.01' maxlength="10"></input></div>
+                                                        <div class='col-4 form-group'><label class='label mt-1'>Service incentive Leave</label><input value='{{ old('leave_bal_SIL') }}' name='leave_bal_SIL' class='form-control form-control-sm'type='number' step='0.01' maxlength="10"></input></div>
+                                                        <div class='col-4 form-group'><label class='label mt-1'>Vacation Leave</label><input value='{{ old('leave_bal_VL') }}' name='leave_bal_VL' class='form-control form-control-sm' type='number' step='0.01' maxlength="10"></input></div>                                                   
                                         </div>
                                         <div class='row'>
                                                         <div class='col-4 form-group'><label class='label mt-1'>SSS</label><input value='{{ old('sss') }}' name='sss' class='form-control form-control-sm' type='text' maxlength="20"></input></div>
