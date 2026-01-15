@@ -118,7 +118,7 @@
 
 @else
   
-  @include('login');
+  @include('login')
      
    @endauth
     

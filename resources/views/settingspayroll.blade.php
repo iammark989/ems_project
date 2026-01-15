@@ -14,7 +14,7 @@
         </div>
         @include('components.modals.schedule')
         @include('components.modals.cutoffperiod')
-        
+        @include('components.modals.schedulemaintenance')
     </x-main>
 @else
 

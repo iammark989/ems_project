@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('itemtypes', function (Blueprint $table) {
             $table->id();
+            $table->string('groupnumber');
+            $table->string('groupname');
             $table->timestamps();
         });
     }

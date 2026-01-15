@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function home(){
         $month = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-        $currentMonth = $month[date('m')-2];
+        $currentMonth = $month[date('m')-1];
         $currentYear = date('Y');
         $net_pay = Employeepayroll::where('month',$currentMonth)->where('year',$currentYear)->sum('net_pay');
 

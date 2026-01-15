@@ -44,10 +44,13 @@
     @yield('rfidmodalscript')
     @yield('makeschedule')
     @yield('schedulescript')
-     @yield('makecutoffperiod')
+    @yield('makecutoffperiod')
     @yield('cutoffperiodscript')
     @yield('editclockinout')
+    @yield('schedulemaintenance')
+    @yield('schemaintenancescript')
     @yield('gstoast')
+    
     
 
 </body>

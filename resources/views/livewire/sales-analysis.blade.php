@@ -12,4 +12,20 @@
   {{ number_format($y2025Sales) }}
   <br>
   <hr>
+
+  <div>
+    <select>
+      <option> -- Select Vendor -- </option>
+        <option>vendor2</option>
+    </select>
+
+    <select>
+      <option> -- Select Product Type -- </option>
+        <option>vendor2</option>
+    </select>
+
+    <input typle=''></input>
+
+
+  </div>
 </div>

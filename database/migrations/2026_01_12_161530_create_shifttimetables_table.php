@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('shifttimetables', function (Blueprint $table) {
             $table->id();
+            $table->string('shiftName');
+            $table->time('onDutyTime');
+            $table->time('offDutyTime');
+            $table->time('beginningCin');
+            $table->time('endingCin');
+            $table->time('endingCout');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('shifttimetables');
     }
 };
